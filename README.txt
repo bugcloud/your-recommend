@@ -4,9 +4,9 @@
  I'm hosting this application on Google App Engine.
  I could confirm this gadget run on mixi - japanese SNS.
 
- Amazon ‚©‚ç‚ ‚È‚½‚ÌƒIƒXƒXƒ‚Ì–{‚ğæ“¾‚µ‚Ä•\¦‚·‚é opensocialƒAƒvƒŠ‚Å‚·B
- Google App Engine ‚ÉƒzƒXƒeƒBƒ“ƒO‚µ‚Ä‚¢‚Ü‚·B
- mixiƒAƒvƒŠ‚Å‚Í"ƒAƒ^ƒC‚Ìˆêû"‚Æ‚¢‚¤–¼‘O‚ÅŒöŠJ‚µ‚Ä‚¢‚Ü‚·B
+ Amazon ã‹ã‚‰ã‚ãªãŸã®ã‚ªã‚¹ã‚¹ãƒ¡ã®æœ¬ã‚’å–å¾—ã—ã¦è¡¨ç¤ºã™ã‚‹ opensocialã‚¢ãƒ—ãƒªã§ã™ã€‚
+ Google App Engine ã«ãƒ›ã‚¹ãƒ†ã‚£ãƒ³ã‚°ã—ã¦ã„ã¾ã™ã€‚
+ mixiã‚¢ãƒ—ãƒªã§ã¯"ã‚¢ã‚¿ã‚¤ã®ä¸€å†Š"ã¨ã„ã†åå‰ã§å…¬é–‹ã—ã¦ã„ã¾ã™ã€‚
 
 
 == usage
