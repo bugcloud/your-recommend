@@ -1,0 +1,5 @@
+ECS_URL = 'http://ecs.amazonaws.jp/onca/xml'
+ACCESS_KEY_ID = 'xxxxxxxxxxxxxxxxxxxxxxxxxx'
+ASSOCIATE_TAG = 'xxxxxx-22'
+SECRET_ACCESS_KEY = 'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxx'
+HTTP_REQUEST_URI = 'ecs.amazonaws.jp'
