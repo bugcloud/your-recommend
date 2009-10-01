@@ -130,7 +130,6 @@ class AmazonItemSearch(webapp.RequestHandler):
         # リクエストの実行と解析
         f = urllib2.urlopen(request)
         p.Parse(f.read())
-        self.response.out.write('<link rel="stylesheet" href="http://bugcloud.appspot.com/static/css/base.css" type="text/css" />')
         self.response.out.write('<div class="result"><ul>')
         for itm in h.item_list:
             self.response.out.write('<li><div class="item">\
@@ -168,7 +167,6 @@ class AmazonItemLookup(webapp.RequestHandler):
         # リクエストの実行と解析
         f = urllib2.urlopen(request)
         p.Parse(f.read())
-        self.response.out.write('<link rel="stylesheet" href="http://bugcloud.appspot.com/static/css/base.css" type="text/css" />')
         self.response.out.write('<div class="myresult">')
         for itm in h.item_list:
             self.response.out.write('<div class="myrecommend"><a href="%s" target="_blank"><img src="%s" border="0"/></a></div>\

@@ -6,6 +6,7 @@
   </ModulePrefs>
   <Content type="html">
      <![CDATA[
+        <link rel="stylesheet" href="http://bugcloud.appspot.com/static/css/base.css" type="text/css" />
         <script type="text/javascript" src="http://bugcloud.appspot.com/static/javascript/hovermessage.js"></script>
         <script type="text/javascript">
 		    var key1 = "key_asin";
@@ -37,7 +38,7 @@
                 var owner_asin = (dataAry==null)?"":dataAry[key1];
                 if (owner_asin==null || owner_asin===""){
 				  // 検索ページを描画 
-				  var htmltext="<b>あなたの一冊を登録してください。</b><br /><input type='text' size='16' id='keyword'/><input type='button' name='search' value='search' onclick='javascript:search_amazon();'/>";
+				  var htmltext="<div class='search'>あなたの一冊を登録してください。<br /><input type='text' size='16' id='keyword'/><input type='button' name='search' value='search' onclick='javascript:search_amazon();'/></div>";
 				  document.getElementById("target").innerHTML = htmltext;
 				}else{
 				  // "http://bugcloud.appspot.com/asin_is"にリクエスト
@@ -48,7 +49,7 @@
                   params[gadgets.io.RequestParameters.CONTENT_TYPE] = gadgets.io.ContentType.TEXT;
                   gadgets.io.makeRequest(url, amazonResponse, params);
                   document.getElementById("target").innerHTML = "";
-                  var del_html = "<a href='javascript:removeRequest()' style='font-size:8pt;'>やっぱり違う本にする</a>";
+                  var del_html = "<a href='javascript:removeRequest()' style='font-size:8pt;margin:0 0 10px 10px'>やっぱり違う本にする</a>";
                   document.getElementById("del").innerHTML = del_html;
 				}
             }
@@ -117,6 +118,7 @@
             }
 		gadgets.util.registerOnLoadHandler(init);
         </script>
+        <img src="http://bugcloud.appspot.com/static/images/apptitle.png" style="border:none;margin:10px;" />
 		<div id="message"/>
 		<div id="target"></div>
         <div id="amazon"></div>
