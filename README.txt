@@ -7,6 +7,7 @@
  Amazon からあなたのオススメの本を取得して表示する opensocialアプリです。
  Google App Engine にホスティングしています。
  mixiアプリでは"アタイの一冊"という名前で公開しています。
+ http://mixi.jp/view_appli.pl?id=9386
 
 
 == usage
