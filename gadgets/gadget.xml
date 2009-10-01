@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<Module>
+  <ModulePrefs title="your recommending.">
+    <Require feature="opensocial-0.8"/>
+	<Require feature="dynamic-height" />
+  </ModulePrefs>
+  <Content type="html">
+     <![CDATA[
+        <script type="text/javascript" src="http://bugcloud.appspot.com/static/javascript/hovermessage.js"></script>
+        <script type="text/javascript">
+		    var key1 = "key_asin";
+			
+		    /**
+             * main
+             */
+            function init(){
+			  loadRequest();
+			}
+			var key1 = "key_asin";
+            // 永続データ読み込み要求
+            function loadRequest() {
+                var req = opensocial.newDataRequest();
+                req.add(req.newFetchPersonRequest(opensocial.IdSpec.PersonId.OWNER), "owner");
+                var fields = [key1];
+                req.add(req.newFetchPersonAppDataRequest(opensocial.IdSpec.PersonId.OWNER, fields), "owner_data");
+                req.send(loadResponse);
+            }
+            // 永続データ読み込み応答
+            function loadResponse(data) {
+                var owner = data.get("owner").getData();
+                var owner_data = data.get("owner_data");
+                if (owner_data.hadError()) {
+                    document.getElementById("message").innerHTML = data.getErrorMessage();
+                    return;
+                }
+                var dataAry = owner_data.getData()[owner.getId()];
+                var owner_asin = (dataAry==null)?"":dataAry[key1];
+                if (owner_asin==null || owner_asin===""){
+				  // 検索ページを描画 
+				  var htmltext="<b>あなたの一冊を登録してください。</b><br /><input type='text' size='16' id='keyword'/><input type='button' name='search' value='search' onclick='javascript:search_amazon();'/>";
+				  document.getElementById("target").innerHTML = htmltext;
+				}else{
+				  // "http://bugcloud.appspot.com/asin_is"にリクエスト
+				  var url = "http://bugcloud.appspot.com/asin_is?asin="
+                            +  owner_asin;
+                  var params = {};
+                  params[gadgets.io.RequestParameters.METHOD] = gadgets.io.MethodType.GET;
+                  params[gadgets.io.RequestParameters.CONTENT_TYPE] = gadgets.io.ContentType.TEXT;
+                  gadgets.io.makeRequest(url, amazonResponse, params);
+                  document.getElementById("target").innerHTML = "";
+                  var del_html = "<a href='javascript:removeRequest()' style='font-size:8pt;'>やっぱり違う本にする</a>";
+                  document.getElementById("del").innerHTML = del_html;
+				}
+            }
+            // 永続データ保存要求
+            function registRequest(selected_asin) {
+                var req = opensocial.newDataRequest();
+                req.add(req.newUpdatePersonAppDataRequest(opensocial.IdSpec.PersonId.OWNER, key1, selected_asin));
+                req.send(registResponse);
+            }
+            // 永続データ保存応答
+            function registResponse(data) {
+                if (data.hadError()) {
+                    document.getElementById("message").innerHTML = data.getErrorMessage();  
+                    return;
+                }
+                loadRequest();
+            }
+            // 永続データ削除要求
+            function removeRequest() {
+                var req = opensocial.newDataRequest();
+                req.add(req.newFetchPersonRequest(opensocial.IdSpec.PersonId.OWNER), "owner");
+                var fields = [key1];
+                req.add(req.newRemovePersonAppDataRequest(opensocial.IdSpec.PersonId.OWNER, fields), "owner_data");
+                document.getElementById("amazon").innerHTML = "";
+                document.getElementById("del").innerHTML = "";
+                req.send(loadResponse);
+            }
+
+            /**
+             * Amazon Web Services 検索処理
+             */
+            function search_amazon() {
+                var url = "http://bugcloud.appspot.com/am_is"
+                            +  makeHttpParam('keyword', true);
+                document.getElementById('amazon').innerHTML = url;
+                var params = {};
+                params[gadgets.io.RequestParameters.METHOD] = gadgets.io.MethodType.GET;
+                params[gadgets.io.RequestParameters.CONTENT_TYPE] = gadgets.io.ContentType.TEXT;
+                gadgets.io.makeRequest(url, amazonResponse, params);
+                document.getElementById('amazon').innerHTML = "now seaching・・・"
+            }
+            /**
+             * Amazon Web Services 検索結果処理
+             */
+            function amazonResponse(responseObj) {
+                var html = "";
+                if (responseObj.data != null) {
+                    html = responseObj.data;
+                }
+                document.getElementById('amazon').innerHTML = html;
+				gadgets.window.adjustHeight(400);
+            }
+
+            /**
+             * HTTP GETリクエストパラメータを生成
+             */
+            function makeHttpParam(param_id, isFirstParam) {
+                isFirstParam = !(isFirstParam == undefined);
+                var paramObj = document.getElementById(param_id);
+                var ret = "";
+                if (paramObj != null) {
+                    ret = ((isFirstParam)?"?":"&") + param_id + "="
+                         + encodeURIComponent(paramObj.value);
+                }
+                return ret;
+            }
+		gadgets.util.registerOnLoadHandler(init);
+        </script>
+		<div id="message"/>
+		<div id="target"></div>
+        <div id="amazon"></div>
+        <div id="del"></div>
+     ]]>
+  </Content>
+</Module>
