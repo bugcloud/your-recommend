@@ -61,6 +61,7 @@
             }
             // 永続データ保存応答
             function registResponse(data) {
+			    document.getElementById('amazon').innerHTML = "<img src='http://bugcloud.appspot.com/static/images/load.gif'>"
                 if (data.hadError()) {
                     document.getElementById("message").innerHTML = data.getErrorMessage();  
                     return;
@@ -89,7 +90,7 @@
                 params[gadgets.io.RequestParameters.METHOD] = gadgets.io.MethodType.GET;
                 params[gadgets.io.RequestParameters.CONTENT_TYPE] = gadgets.io.ContentType.TEXT;
                 gadgets.io.makeRequest(url, amazonResponse, params);
-                document.getElementById('amazon').innerHTML = "now seaching・・・"
+                document.getElementById('amazon').innerHTML = "<img src='http://bugcloud.appspot.com/static/images/load.gif'>"
             }
             /**
              * Amazon Web Services 検索結果処理
